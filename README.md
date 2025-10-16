@@ -59,6 +59,10 @@ To contribute to this plugin:
 
 ## Changelog
 
+### v1.1
+
+- Fixed file path resolution issue - now properly maps VFS files to real file system paths
+
 ### v1.0
 
 - Initial release

@@ -22,11 +22,12 @@ async function runFileOnServer(entry) {
     const response = await HFS.customRestCall("runFile", { file: entry.name });
 
     if (response.success) {
-      HFS.toast(`"${entry.name}" executed successfully`, 'success');
+      HFS.toast(`"${entry.name}" executed successfully`, "success");
     } else {
-      HFS.toast(`Error: ${response.error}`, 'error');
+      HFS.toast(`Error: ${response.error}`, "error");
     }
   } catch (error) {
-    HFS.toast(`Failed to execute "${entry.name}": ${error.message}`, 'error');
+    HFS.toast(`Failed to execute "${entry.name}": ${error.message}`, "error");
   }
 }
+

@@ -1,5 +1,5 @@
 exports.repo = "8gudbits/hfs-run"
-exports.version = 1.0
+exports.version = 1.1
 exports.description = "Run executable files on the server (Windows only) using hfs."
 exports.apiRequired = 9.6
 exports.frontend_js = ["main.js"]
@@ -10,22 +10,31 @@ exports.init = (api) => {
   const path = api.require("path")
   const fs = api.require("fs")
 
+  const filePathMap = new Map()
+
+  exports.onDirEntry = ({ node }) => {
+    if (node && node.source && node.name) {
+      filePathMap.set(node.name, node.source)
+    }
+  }
+
   exports.customRest = {
     runFile({ file }) {
       if (!file) {
         return { success: false, error: "No file specified" }
       }
 
-      const safeFile = path.basename(file)
-      const hfsRoot = process.cwd()
-      const fullPath = path.join(hfsRoot, safeFile)
+      const fullPath = filePathMap.get(file)
 
-      if (!fs.existsSync(fullPath)) {
-        return { success: false, error: "File not found: " + fullPath }
+      if (!fullPath) {
+        return {
+          success: false,
+          error: `File "${file}" not found. Please refresh the file list and try again.`,
+        }
       }
 
-      if (!fullPath.startsWith(hfsRoot)) {
-        return { success: false, error: "Invalid file path" }
+      if (!fs.existsSync(fullPath)) {
+        return { success: false, error: "File not found on disk: " + fullPath }
       }
 
       const ext = path.extname(fullPath).toLowerCase().slice(1)
