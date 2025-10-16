@@ -1,2 +1,67 @@
 # hfs-run
-Run executable files on the server using hfs.
+
+Run executable files on the server (Windows only) using hfs.
+
+## Features
+
+- Adds run buttons next to executable files in HFS file listings
+- Executes files directly on the server (not the client's computer)
+- Supports various file types: `.exe`, `.msi`, `.bat`, `.cmd`, `.ps1`, `.vbs`, and more
+- Configurable file extensions
+
+## Manual Installation
+
+1. Download the plugin folder
+2. Place it in your HFS `plugins` directory
+3. Refresh HFS admin page
+
+## Configuration
+
+In the HFS admin panel under Plugins > hfs-run:
+
+- **Show run button**: Enable/disable the run button display
+- **File extensions**: Customize which file extensions show the run button (separated by `|`)
+
+**Default extensions**: `exe|msi|bat|ps1|vbs`
+
+## Supported File Types
+
+- **.exe** - Executable files (runs directly)
+- **.msi** - Windows installer packages (uses msiexec)
+- **.bat/.cmd** - Batch files (uses cmd.exe)
+- **.ps1** - PowerShell scripts (uses PowerShell with execution policy bypass)
+- **.vbs** - VBScript files (uses wscript.exe through cmd.exe)
+- **Plus any other executable file type** configured by the user
+
+## Requirements
+
+- HFS v3 with API version 9.6 or higher
+- Windows operating system for the server
+- Appropriate permissions to execute files on the server
+
+## Security Notes
+
+⚠️ **Use with caution!** This plugin executes files on your server. Only use with trusted files and in secure environments.
+
+- Files are executed with the same permissions as the HFS process
+- Consider running HFS with limited privileges
+- Only enable for trusted users or in controlled environments
+
+Note: Run HFS as Admin to allow `.ps1` file execution, Windows does not allow execution of `ps1` files without Admin permits by default.
+
+## Development
+
+To contribute to this plugin:
+
+1. Fork the repository
+2. Make your changes
+3. Submit a pull request
+
+## Changelog
+
+### v1.0
+
+- Initial release
+- Basic file execution functionality
+- Configurable file extensions
+
