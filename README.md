@@ -11,7 +11,7 @@ Run executable files on the server (Windows only) using hfs.
 
 ## Manual Installation
 
-1. Download the plugin folder
+1. Download the plugin's `dist` folder
 2. Place it in your HFS `plugins` directory
 3. Refresh HFS admin page
 
@@ -21,6 +21,7 @@ In the HFS admin panel under Plugins > hfs-run:
 
 - **Show run button**: Enable/disable the run button display
 - **File extensions**: Customize which file extensions show the run button (separated by `|`)
+- **Users/groups who can see run buttons**: Restrict run button visibility to specific users or groups (leave empty to show to all users)
 
 **Default extensions**: `exe|msi|bat|ps1|vbs`
 
@@ -58,6 +59,11 @@ To contribute to this plugin:
 3. Submit a pull request
 
 ## Changelog
+
+### v1.2
+
+- Added user/group permissions - admin can now restrict run button visibility to specific users or groups
+- Improved security by allowing fine-grained access control
 
 ### v1.1
 

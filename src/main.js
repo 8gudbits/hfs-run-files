@@ -3,6 +3,20 @@ const pluginConfig = HFS.getPluginConfig();
 // Add run buttons to executable files
 if (pluginConfig.showRunButton) {
   HFS.onEvent("afterEntryName", ({ entry, h }) => {
+    // Check if user has permission to see run buttons
+    const allowedUsers = pluginConfig.allowedUsers || [];
+    const currentUser = HFS.state.username;
+
+    // If allowedUsers is empty, show to all users
+    // Otherwise, check if current user is in the allowed list
+    const canSeeButton =
+      allowedUsers.length === 0 ||
+      allowedUsers.some((user) => HFS.userBelongsTo(user));
+
+    if (!canSeeButton) {
+      return null;
+    }
+
     const extensions = pluginConfig.fileExtensions || "exe|msi|bat|ps1|vbs";
     const extensionPattern = new RegExp(extensions, "i");
 

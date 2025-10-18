@@ -1,5 +1,5 @@
 exports.repo = "8gudbits/hfs-run"
-exports.version = 1.1
+exports.version = 1.2
 exports.description = "Run executable files on the server (Windows only) using hfs."
 exports.apiRequired = 9.6
 exports.frontend_js = ["main.js"]
@@ -84,6 +84,15 @@ exports.config = {
     label: "File extensions to show run button for",
     description:
       "Separate extensions with | (pipe) character. Example: exe|bat|ps1|vbs",
+  },
+  allowedUsers: {
+    frontend: true,
+    type: "username",
+    multiple: true,
+    defaultValue: [],
+    label: "Users/groups who can see run buttons",
+    description:
+      "Leave empty to show to all users. Select specific users or groups to restrict access.",
   },
 }
 
