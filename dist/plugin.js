@@ -1,14 +1,14 @@
 exports.repo = "8gudbits/hfs-run"
 exports.version = 1.3
 exports.description = "Run executable files on the server (Windows only) using hfs."
-exports.apiRequired = 12.3
+exports.apiRequired = 9.6
 exports.frontend_js = ["main.js"]
 exports.frontend_css = ["style.css"]
 exports.changelog = [
-    { version: 1.3, message: "Fixed CLI app interference with HFS by using proper process detachment" },
-    { version: 1.2, message: "Added user/group permissions - admin can now restrict run button visibility to specific users or groups" },
-    { version: 1.1, message: "Fixed file path resolution issue - now properly maps VFS files to real file system paths" },
-    { version: 1.0, message: "Initial release with basic file execution functionality and configurable file extensions" }
+    { "version": 1.3, "message": "Fixed CLI app interference with HFS by using proper process detachment" },
+    { "version": 1.2, "message": "Added user/group permissions - admin can now restrict run button visibility to specific users or groups" },
+    { "version": 1.1, "message": "Fixed file path resolution issue - now properly maps VFS files to real file system paths" },
+    { "version": 1.0, "message": "Initial release with basic file execution functionality and configurable file extensions" }
 ]
 
 exports.init = (api) => {
