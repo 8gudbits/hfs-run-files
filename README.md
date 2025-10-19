@@ -60,6 +60,10 @@ To contribute to this plugin:
 
 ## Changelog
 
+### v1.3
+
+- Fixed CLI app interference with HFS by using proper process detachment
+
 ### v1.2
 
 - Added user/group permissions - admin can now restrict run button visibility to specific users or groups

@@ -1,12 +1,18 @@
 exports.repo = "8gudbits/hfs-run"
-exports.version = 1.2
+exports.version = 1.3
 exports.description = "Run executable files on the server (Windows only) using hfs."
 exports.apiRequired = 9.6
 exports.frontend_js = ["main.js"]
 exports.frontend_css = ["style.css"]
+exports.changelog = [
+    { version: 1.3, message: "Fixed CLI app interference with HFS by using proper process detachment" },
+    { version: 1.2, message: "Added user/group permissions - admin can now restrict run button visibility to specific users or groups" },
+    { version: 1.1, message: "Fixed file path resolution issue - now properly maps VFS files to real file system paths" },
+    { version: 1.0, message: "Initial release with basic file execution functionality and configurable file extensions" }
+]
 
 exports.init = (api) => {
-  const { execFile } = api.require("child_process")
+  const { spawn } = api.require("child_process")
   const path = api.require("path")
   const fs = api.require("fs")
 
@@ -57,12 +63,16 @@ exports.init = (api) => {
           break
       }
 
-      execFile(command, args, { cwd: path.dirname(fullPath) }, (error) => {
-        if (error) {
-          api.log("Error running file: " + error.message)
-        } else {
-          api.log("File executed successfully: " + file)
-        }
+      const child = spawn(command, args, {
+        detached: true,
+        stdio: "ignore",
+        windowsHide: true,
+      })
+
+      child.unref()
+
+      child.on("error", (error) => {
+        api.log("Error running file: " + error.message)
       })
 
       return { success: true, message: "File execution started: " + file }
@@ -95,4 +105,3 @@ exports.config = {
       "Leave empty to show to all users. Select specific users or groups to restrict access.",
   },
 }
-
