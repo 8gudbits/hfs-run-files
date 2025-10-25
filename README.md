@@ -64,6 +64,10 @@ To contribute to this plugin:
 
 ## Changelog
 
+### v1.4
+
+- Added real-time backend permission verification on every execution
+
 ### v1.3
 
 - Fixed CLI app interference with HFS by using proper process detachment
