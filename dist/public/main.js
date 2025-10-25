@@ -2,12 +2,10 @@ const pluginConfig = HFS.getPluginConfig();
 
 if (pluginConfig.showRunButton) {
   HFS.onEvent("afterEntryName", ({ entry, h }) => {
-    // Check if user has permission to see run buttons
     const allowedUsers = pluginConfig.allowedUsers || [];
-    const currentUser = HFS.state.username;
 
     const canSeeButton =
-      allowedUsers.length === 0 ||
+      allowedUsers.length > 0 &&
       allowedUsers.some((user) => HFS.userBelongsTo(user));
 
     if (!canSeeButton) {
@@ -41,4 +39,3 @@ async function runFileOnServer(entry) {
     HFS.toast(`Failed to execute "${entry.name}": ${error.message}`, "error");
   }
 }
-

@@ -5,12 +5,11 @@ if (pluginConfig.showRunButton) {
   HFS.onEvent("afterEntryName", ({ entry, h }) => {
     // Check if user has permission to see run buttons
     const allowedUsers = pluginConfig.allowedUsers || [];
-    const currentUser = HFS.state.username;
 
-    // If allowedUsers is empty, show to all users
+    // If allowedUsers is empty, NO ONE sees the button
     // Otherwise, check if current user is in the allowed list
     const canSeeButton =
-      allowedUsers.length === 0 ||
+      allowedUsers.length > 0 &&
       allowedUsers.some((user) => HFS.userBelongsTo(user));
 
     if (!canSeeButton) {

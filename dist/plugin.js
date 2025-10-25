@@ -1,11 +1,12 @@
 exports.repo = "8gudbits/hfs-run"
-exports.version = 1.3
+exports.version = 1.4
 exports.description = "Run executable files on the server (Windows only) using hfs."
 exports.preview = "https://github.com/8gudbits/hfs-run/raw/main/preview.png"
 exports.apiRequired = 9.6
 exports.frontend_js = "main.js"
 exports.frontend_css = "style.css"
 exports.changelog = [
+    { "version": 1.4, "message": "Added real-time backend permission verification on every execution" },
     { "version": 1.3, "message": "Fixed CLI app interference with HFS by using proper process detachment" },
     { "version": 1.2, "message": "Added user/group permissions - admin can now restrict run button visibility to specific users or groups" },
     { "version": 1.1, "message": "Fixed file path resolution issue - now properly maps VFS files to real file system paths" },
@@ -25,8 +26,31 @@ exports.init = (api) => {
     }
   }
 
+  function hasRunPermission(ctx) {
+    const pluginConfig = api.getConfig()
+    const allowedUsers = pluginConfig.allowedUsers || []
+
+    if (allowedUsers.length === 0) {
+      return false
+    }
+
+    const currentUser = api.getCurrentUsername(ctx)
+    if (!currentUser) {
+      return false
+    }
+
+    return allowedUsers.some((user) => api.ctxBelongsTo(ctx, user))
+  }
+
   exports.customRest = {
-    runFile({ file }) {
+    runFile({ file }, ctx) {
+      if (!hasRunPermission(ctx)) {
+        return {
+          success: false,
+          error: "You don't have permission to run files",
+        }
+      }
+
       if (!file) {
         return { success: false, error: "No file specified" }
       }
@@ -101,8 +125,8 @@ exports.config = {
     type: "username",
     multiple: true,
     defaultValue: [],
-    label: "Users/groups who can see run buttons",
+    label: "Users/groups who can run files",
     description:
-      "Leave empty to show to all users. Select specific users or groups to restrict access.",
+      "Select specific users or groups to grant access. If empty, NO ONE can run files (default deny).",
   },
 }
