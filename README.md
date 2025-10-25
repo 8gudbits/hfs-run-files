@@ -1,4 +1,4 @@
-# hfs-run
+# hfs-run-files
 
 Run executable files on the server (Windows only) using hfs.
 
