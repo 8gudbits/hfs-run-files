@@ -9,7 +9,7 @@
 .run-button {
     border: none;
     border-radius: 4px;
-    color: white;
+    color: var(--button-text);
     cursor: pointer;
     font-size: 0.675em;
     margin-left: 8px;
