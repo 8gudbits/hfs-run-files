@@ -1,5 +1,5 @@
 exports.repo = "8gudbits/hfs-run-files"
-exports.version = 1.4
+exports.version = 1.5
 exports.description = "Run executable files on the server (Windows only) using hfs."
 exports.preview = "https://github.com/8gudbits/hfs-run-files/raw/main/preview.png"
 exports.apiRequired = 9.6
