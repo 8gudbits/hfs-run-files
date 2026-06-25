@@ -6,6 +6,7 @@ exports.apiRequired = 9.6
 exports.frontend_js = "main.js"
 exports.frontend_css = "style.css"
 exports.changelog = [
+    { "version": 1.5, "message": "Updated backend permission checks to match native HFS API changes and fixed layout/font rendering conflicts with other plugins" },
     { "version": 1.4, "message": "Added real-time backend permission verification on every execution" },
     { "version": 1.3, "message": "Fixed CLI app interference with HFS by using proper process detachment" },
     { "version": 1.2, "message": "Added user/group permissions - admin can now restrict run button visibility to specific users or groups" },
@@ -42,7 +43,7 @@ exports.init = (api) => {
       return false // No user logged in
     }
 
-    return allowedUsers.some((user) => api.ctxBelongsTo(ctx, user))
+    return api.ctxBelongsTo(ctx, allowedUsers)
   }
 
   exports.customRest = {

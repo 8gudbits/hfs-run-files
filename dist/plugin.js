@@ -39,7 +39,7 @@ exports.init = (api) => {
       return false
     }
 
-    return allowedUsers.some((user) => api.ctxBelongsTo(ctx, user))
+    return api.ctxBelongsTo(ctx, allowedUsers)
   }
 
   exports.customRest = {
