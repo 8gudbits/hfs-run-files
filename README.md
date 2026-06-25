@@ -66,7 +66,8 @@ To contribute to this plugin:
 
 ### v1.5
 
-- Updated backend permission checks to match native HFS API changes and fixed layout/font rendering conflicts with other plugins
+- Updated backend permission checks to match native HFS API changes
+- Fixed layout/font rendering conflicts with other plugins
 
 ### v1.4
 
