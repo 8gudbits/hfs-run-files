@@ -64,6 +64,10 @@ To contribute to this plugin:
 
 ## Changelog
 
+### v1.5
+
+- Updated backend permission checks to match native HFS API changes and fixed layout/font rendering conflicts with other plugins
+
 ### v1.4
 
 - Added real-time backend permission verification on every execution
